@@ -1,0 +1,14 @@
+{
+  "name": "chrome-music-lab",
+  "version": "1.0.0",
+  "description": "Chrome Music Lab unified project for Vercel",
+  "main": "index.html",
+  "scripts": {
+    "postinstall": "for dir in arpeggios chords melodymaker pianoroll soundspinner soundwaves spectrogram; do if [ -f \"$dir/package.json\" ]; then (cd \"$dir\" && npm install --legacy-peer-deps --force); fi; done",
+    "build:webpack": "WP=$(pwd)/arpeggios/node_modules/.bin/webpack; ROOT_NM=$(pwd)/arpeggios/node_modules; for dir in arpeggios chords melodymaker pianoroll soundspinner; do echo \"Building $dir...\"; (cd \"$dir\" && NODE_PATH=\"$(pwd)/node_modules:$(pwd)/../arpeggios/node_modules:$(pwd)/../pianoroll/node_modules:$(pwd)/../soundspinner/node_modules:$ROOT_NM\" \"$WP\" --config webpack.config.js); done",
+    "build:spectrogram": "node scripts/build-spectrogram.js",
+    "build": "npm run build:webpack && npm run build:spectrogram"
+  },
+  "author": "",
+  "license": "Apache-2.0"
+}

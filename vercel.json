@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/harmonics",
+      "destination": "/harmonics & strings/index.html"
+    },
+    {
+      "source": "/harmonics/(.*)",
+      "destination": "/harmonics & strings/$1"
+    },
+    {
+      "source": "/soundwaves/(.*)",
+      "destination": "/soundwaves/dist/$1"
+    },
+    {
+      "source": "/spectrogram/(.*)",
+      "destination": "/spectrogram/build/$1"
+    }
+  ]
+}
