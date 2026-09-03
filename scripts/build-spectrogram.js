@@ -1,8 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const sass = require(path.resolve(__dirname, '../arpeggios/node_modules/sass'));
-const jade = require(path.resolve(__dirname, '../spectrogram/node_modules/jade'));
-const browserify = require(path.resolve(__dirname, '../spectrogram/node_modules/browserify'));
 
 console.log("Building Spectrogram...");
 
@@ -12,6 +9,12 @@ const buildDir = path.join(specDir, 'build');
 fs.mkdirSync(buildDir, { recursive: true });
 fs.mkdirSync(path.join(buildDir, 'css'), { recursive: true });
 fs.mkdirSync(path.join(buildDir, 'js'), { recursive: true });
+
+// Attempt loading modules from local or root
+let sass, jade, browserify;
+try { sass = require('sass'); } catch (e) { sass = require(path.resolve(__dirname, '../arpeggios/node_modules/sass')); }
+try { jade = require('jade'); } catch (e) { jade = require(path.resolve(__dirname, '../spectrogram/node_modules/jade')); }
+try { browserify = require('browserify'); } catch (e) { browserify = require(path.resolve(__dirname, '../spectrogram/node_modules/browserify')); }
 
 // 1. Compile SASS
 const compiledCss = sass.compile(path.join(specDir, 'src/sass/screen.scss'));
