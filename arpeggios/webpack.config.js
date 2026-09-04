@@ -11,6 +11,7 @@ module.exports = {
 	output: {
 		filename: "./build/[name].js",
 		chunkFilename: "./build/[id].js",
+		publicPath: "./build/",
 		sourceMapFilename : "[file].map",
 	},
 	resolve: {
@@ -21,7 +22,7 @@ module.exports = {
 		fallback: path.resolve(__dirname, "../node_modules"),
 		modulesDirectories : ["node_modules", path.resolve(__dirname, "../node_modules"), "style", "third_party/Tone.js/", "app", "third_party"],
 		alias: {
-			"StartAudioContext": path.resolve(__dirname, "node_modules/startaudiocontext/StartAudioContext.js")
+			"StartAudioContext": path.resolve(__dirname, "../arpeggios/node_modules/startaudiocontext/StartAudioContext.js")
 		}
 	},
 	resolveLoader: {
