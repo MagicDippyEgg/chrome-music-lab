@@ -18,7 +18,9 @@ try { browserify = require('browserify'); } catch (e) { browserify = require(pat
 
 // 1. Compile SASS
 const compiledCss = sass.compile(path.join(specDir, 'src/sass/screen.scss'));
-fs.writeFileSync(path.join(buildDir, 'css/screen.css'), compiledCss.css);
+// Strip @font-face rules referencing non-existent font files
+let cleanCss = compiledCss.css.replace(/@font-face\s*\{[^}]*\}/gi, '');
+fs.writeFileSync(path.join(buildDir, 'css/screen.css'), cleanCss);
 
 // 2. Render Jade template
 const html = jade.renderFile(path.join(specDir, 'src/jade/index.jade'), { pretty: true });
@@ -45,8 +47,9 @@ appJsStream.on('finish', () => {
   console.log("Spectrogram Browserify bundle written.");
 });
 
-// 5. Copy static directories bin & images
+// Helper function to recursively copy directories
 function copyDir(src, dest) {
+  if (!fs.existsSync(src)) return;
   fs.mkdirSync(dest, { recursive: true });
   for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
     const srcPath = path.join(src, entry.name);
@@ -59,6 +62,7 @@ function copyDir(src, dest) {
   }
 }
 
+// 5. Copy static directories bin & images
 copyDir(path.join(specDir, 'src/bin'), path.join(buildDir, 'bin'));
 copyDir(path.join(specDir, 'src/images'), path.join(buildDir, 'img'));
 

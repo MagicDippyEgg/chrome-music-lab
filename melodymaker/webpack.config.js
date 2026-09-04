@@ -11,7 +11,7 @@ module.exports = {
 	output: {
 		filename: "./build/[name].js",
 		chunkFilename: "./build/[id].js",
-		publicPath: "./build/",
+		publicPath: "./",
 		sourceMapFilename : "[file].map",
 	},
 	resolve: {
@@ -19,14 +19,14 @@ module.exports = {
 			__dirname,
 			path.resolve(__dirname, "style")
 		],
-		fallback: path.resolve(__dirname, "../node_modules"),
-		modulesDirectories : ["style", "app", "third_party/Tone.js/", "third_party", "node_modules", path.resolve(__dirname, "../node_modules")],
+		fallback: path.resolve(__dirname, "../arpeggios/node_modules"),
+		modulesDirectories : ["style", "app", "third_party/Tone.js/", "third_party", "node_modules", path.resolve(__dirname, "../arpeggios/node_modules")],
 		alias: {
 			"StartAudioContext": path.resolve(__dirname, "../arpeggios/node_modules/startaudiocontext/StartAudioContext.js")
 		}
 	},
 	resolveLoader: {
-		fallback: path.resolve(__dirname, "../node_modules")
+		fallback: path.resolve(__dirname, "../arpeggios/node_modules")
 	},
 	plugins: PROD ? [
 	    new webpack.optimize.UglifyJsPlugin({minimize: true})
