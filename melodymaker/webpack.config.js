@@ -11,7 +11,6 @@ module.exports = {
 	output: {
 		filename: "./build/[name].js",
 		chunkFilename: "./build/[id].js",
-		publicPath: "./",
 		sourceMapFilename : "[file].map",
 	},
 	resolve: {
